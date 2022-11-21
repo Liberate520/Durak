@@ -1,6 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/target/
+!**/src/main/**/target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
@@ -8,8 +8,6 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-.idea/shelf/
-.idea/workspace.xml
 *.iws
 *.iml
 *.ipr
