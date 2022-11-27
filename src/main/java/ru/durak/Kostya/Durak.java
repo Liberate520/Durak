@@ -7,10 +7,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import ru.durak.Kostya.infrastructure.Metrics;
+import ru.durak.Kostya.infrastructure.Resources;
+import ru.durak.Kostya.infrastructure.Textures;
+import ru.durak.Kostya.infrastructure.Vector;
+import ru.durak.Kostya.model.abstraction.CardSceneObject;
+import ru.durak.Kostya.model.abstraction.DeckBuilder;
+import ru.durak.Kostya.model.abstraction.TableSceneObject;
+import ru.durak.Kostya.model.abstraction.game.enums.Suit;
+import ru.durak.Kostya.model.abstraction.scene.SceneObject;
+import ru.durak.Kostya.model.implementation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 public class Durak extends Application {
 
@@ -30,6 +40,61 @@ public class Durak extends Application {
 
     @Override
     public void start(Stage stage) {
+        //oldVersion(stage);
+        newVersion(stage);
+    }
+
+    public void newVersion(Stage stage) {
+        Resources.setTextures(new Textures());
+        loadImages();
+        Image back = Resources.getTextures().getTexture("back");
+        Vector size = new Vector(700, 400);
+        Resources.setMetrics(new Metrics(
+                6,
+                new Vector(back.getWidth(), back.getHeight()),
+                new Vector[] {
+                        new Vector(350, 290),
+                        new Vector(-10, 50),
+                        new Vector(530, 50)
+                },
+                size));
+
+        SceneObject gameScene = new GameScene(size);
+        gameScene.setTexture(Resources.getTextures().getTexture("table"));
+
+        DeckBuilder deckBuilder = new CardDeckBuilder(back, 6, 14, Suit.values());
+        PlayerSceneObjectBuilder playersBuilder = new PlayerSceneObjectBuilder(1, 2);
+
+        TableSceneObject<CardSceneObject> table = new TableGameObject();
+        table.setPosition(Vector.div(size, 2));
+        table.setParent(gameScene);
+
+        DurakGame game = new DurakGame(gameScene, deckBuilder, playersBuilder, table);
+        game.start();
+
+        Pane pane = new Pane();
+        pane.getChildren().addAll(gameScene.getGroup());
+        Scene scene = new Scene(pane, size.getX(), size.getY());
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void loadImages() {
+        Image table = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image/table.jpg")));
+        Resources.getTextures().addTexture("table", table);
+
+        Image back = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image/deck/back.png")));
+        Resources.getTextures().addTexture("back", back);
+
+        for (Suit suit: Suit.values())
+            for (int i = 6; i <= 14; i++) {
+                Image face = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image/deck/" + suit + "/" + i + ".png")));
+                Resources.getTextures().addTexture(suit.toString() + i, face);
+            }
+    }
+
+
+    public void oldVersion(Stage stage) {
 
         Image tableImage = new Image(getClass().getResourceAsStream("image/table.jpg"));
         ImageView img = new ImageView(tableImage);
