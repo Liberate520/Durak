@@ -5,6 +5,7 @@ import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.*;
 import ru.durak.Kostya.model.abstraction.PlayerBuilder;
 import ru.durak.Kostya.model.abstraction.game.Game;
+import ru.durak.Kostya.model.abstraction.game.enums.Suit;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class DurakGame implements Game<CardSceneObject> {
 
     private int current;
 
+    private Suit trump;
+
     public DurakGame(SceneObject scene, DeckBuilder deckBuilder, PlayerBuilder playersBuilder, TableSceneObject table) {
         this.defaultCards = Resources.getMetrics().getCardsCount();
         this.scene = scene;
@@ -45,11 +48,12 @@ public class DurakGame implements Game<CardSceneObject> {
 
         deck.shuffle();
 
-        gameCycle();
+        distribute();
+        setTrump();
     }
 
-    protected void gameCycle() {
-        distribute();
+    public Suit getTrump() {
+        return trump;
     }
 
     protected void clear() {
@@ -75,8 +79,9 @@ public class DurakGame implements Game<CardSceneObject> {
         deck.setParent(scene);
         Vector sceneSize = Resources.getMetrics().getSceneSize();
         Vector cardSize = Resources.getMetrics().getCardSize();
-        double verticalIndent = cardSize.getY() - cardSize.getX() + Resources.getMetrics().getHorizontalIndent().getX();
-        deck.setPosition(new Vector(sceneSize.getX() / 2 - cardSize.getY() / 2, verticalIndent));
+        double verticalIndent = cardSize.getY() - cardSize.getX() + Resources.getMetrics().getVerticalIndent().getX();
+        deck.setPosition(new Vector(sceneSize.getX() / 2 - cardSize.getX() / 2, verticalIndent));
+        deck.setRotation(90);
     }
 
     protected void distribute() {
@@ -90,5 +95,16 @@ public class DurakGame implements Game<CardSceneObject> {
 
                 player.add(deck.pop());
             }
+    }
+
+    protected void setTrump() {
+        if (trump != null)
+            return;
+
+        CardSceneObject card = deck.peekLast();
+        trump = card.getSuit();
+        card.isHiddenFace(false);
+        card.setPosition(Vector.diff(card.getPosition(), Resources.getMetrics().getHorizontalIndent()));
+        card.setRotation(90);
     }
 }

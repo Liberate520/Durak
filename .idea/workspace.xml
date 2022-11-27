@@ -5,77 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9687c577-6ef7-4e43-a4b5-af8121fff500" name="Changes" comment="Обновление проекта">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/infrastructure/Metrics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/infrastructure/Resources.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/infrastructure/Textures.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/infrastructure/Vector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/CardSceneObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/DeckBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/DeckSceneObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/PlayerBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/PlayerSceneObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/TableSceneObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Card.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Deck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Expression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Hand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/Table.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/game/enums/Suit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/scene/SceneObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/CardDeckBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/CardGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/CardHand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/ControlPlayerGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DeckGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DurakGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/GameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/GameScene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/NpcPlayerGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/PlayerGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/PlayerSceneObjectBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/TableGameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/clovers/9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/hearts/9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/pikes/9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ru/durak/Kostya/image/deck/tiles/9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/Durak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/Durak.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/durak/Kostya/Durak.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/durak/Kostya/Durak.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/scene/SceneObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/abstraction/scene/SceneObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DeckGameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DeckGameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DurakGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/DurakGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/durak/Kostya/model/implementation/GameObject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,22 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path": "C:\\Users\\kopanev_iv\\.m2\\repository\\org",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/kopanev_iv/Desktop/Durak/src/main/resources/ru/durak/Kostya/image",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path&quot;: &quot;C:\\Users\\kopanev_iv\\.m2\\repository\\org&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kopanev_iv/Desktop/Durak/src/main/resources/ru/durak/Kostya/image&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kopanev_iv\Desktop\Durak\src\main\resources\ru\durak\Kostya\image" />
@@ -142,21 +76,6 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ru.durak.Kostya" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Durak" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Durak" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

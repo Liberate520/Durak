@@ -12,6 +12,10 @@ public interface SceneObject {
 
     void setPosition(Vector vector);
 
+    double getRotation();
+
+    void setRotation(double angle);
+
     int getLayer();
 
     void setLayer(int layer);

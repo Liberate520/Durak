@@ -40,6 +40,16 @@ public abstract class GameObject implements SceneObject {
     }
 
     @Override
+    public double getRotation() {
+        return group.getRotate();
+    }
+
+    @Override
+    public void setRotation(double angle) {
+        group.setRotate(angle);
+    }
+
+    @Override
     public int getLayer() {
         return (int)group.getViewOrder();
     }
