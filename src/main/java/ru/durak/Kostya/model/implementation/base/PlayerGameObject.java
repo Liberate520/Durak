@@ -23,20 +23,22 @@ public abstract class PlayerGameObject extends GameObject implements PlayerScene
         if (newCard == null)
             return;
 
+        order(cards.count());
+
         Vector indent = Resources.getMetrics().getHorizontalIndent();
-
-        Vector start = new Vector(-(Resources.getMetrics().getCardSize().getX() + indent.getX() * (cards.count())) / 2, 0);
-
-        int index = 0;
-        for (CardSceneObject card: cards) {
-            card.setLayer(-index);
-            card.setPosition(Vector.sum(start, Vector.mult(indent, index++)));
-        }
-
-        newCard.setLayer(-index);
-        newCard.setPosition(Vector.sum(start, Vector.mult(indent, index)));
+        newCard.setLayer(-cards.count());
+        newCard.setRotation(0);
+        newCard.setPosition(Vector.sum(
+                new Vector(-(Resources.getMetrics().getCardSize().getX() + indent.getX() * (cards.count())) / 2, 0),
+                Vector.mult(indent, cards.count())));
         newCard.setParent(this);
         cards.add(newCard);
+    }
+
+    @Override
+    public void remove(CardSceneObject card) {
+        cards.remove(card);
+        order(cards.count() - 1);
     }
 
     @Override
@@ -45,5 +47,16 @@ public abstract class PlayerGameObject extends GameObject implements PlayerScene
     @Override
     public int count() {
         return cards.count();
+    }
+
+    protected void order(int count) {
+        Vector indent = Resources.getMetrics().getHorizontalIndent();
+        Vector start = new Vector(-(Resources.getMetrics().getCardSize().getX() + indent.getX() * (count)) / 2, 0);
+
+        int index = 0;
+        for (CardSceneObject card: cards) {
+            card.setLayer(-index);
+            card.setPosition(Vector.sum(start, Vector.mult(indent, index++)));
+        }
     }
 }

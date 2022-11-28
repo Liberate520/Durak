@@ -12,6 +12,8 @@ public interface Table<T> extends Iterable<T> {
 
     T first(Expression<T, Boolean> predicate);
 
+    void remove(T value);
+
     void clear();
 
     Collection<T> popAll();

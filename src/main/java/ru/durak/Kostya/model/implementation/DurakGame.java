@@ -2,6 +2,7 @@ package ru.durak.Kostya.model.implementation;
 
 import javafx.scene.control.Button;
 import ru.durak.Kostya.infrastructure.Resources;
+import ru.durak.Kostya.infrastructure.Transform;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.*;
 import ru.durak.Kostya.model.abstraction.builders.DeckBuilder;
@@ -74,6 +75,7 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
         if (table.count() == 0 || (!table.hasSingle() &&
                 table.first(tableCard -> card.getRank() == tableCard.getRank()) != null)) {
 
+            current.remove(card);
             table.add(card);
             setCurrent(currentDefend);
 
@@ -81,9 +83,10 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
                 (card.getRank() > table.peek().getRank() && card.getSuit() == table.peek().getSuit()) ||
                 (card.getSuit() == trump && table.peek().getSuit() != trump))) {
 
+            current.remove(card);
             table.add(card);
 
-            if (player.count() == 0 || table.count() == defaultCards) {
+            if (current.count() == 0 || table.count() == defaultCards) {
                 table.clear();
 
                 if (!isContinue()) {
@@ -92,7 +95,7 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
                 }
 
 
-                setCurrent(current);
+                setCurrent(currentDefend);
                 currentDefend = next(current);
             } else
                 setCurrent(previous(currentDefend));
@@ -105,8 +108,10 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
         if (player != current || player != currentDefend || !table.hasSingle())
             return;
 
-        for (CardSceneObject card: table.getAll())
+        for (CardSceneObject card: table.getAll()) {
+            table.remove(card);
             current.add(card);
+        }
 
         if (!isContinue()) {
             finish();
@@ -126,13 +131,15 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
                 finish();
                 return;
             }
-
+            table.clear();
             setCurrent(currentDefend);
             currentDefend = next(current);
         } else {
             PlayerSceneObject<CardSceneObject> next = next(current);
             if (next == currentDefend)
-                setCurrent(next(current));
+                next = next(currentDefend);
+
+            setCurrent(next);
         }
 
         current.getMove();
@@ -140,6 +147,7 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
 
     protected boolean isContinue() {
         distribute(previous(current));
+
         activePlayers.removeIf(player -> player.count() == 0);
         return activePlayers.size() >= 2;
     }
@@ -179,6 +187,8 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
     protected void setCurrent(PlayerSceneObject<CardSceneObject> player) {
         current = player;
 
+        System.out.println(players.indexOf(current));
+
         giveButton.setOnClick(mouseEvent -> {
             if (current.getActiveButton())
                 this.give(current);
@@ -191,13 +201,14 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
     }
 
     protected void createPlayers() {
-        Vector[] positions = Resources.getMetrics().getPlayersPositions();
+        Transform[] transform = Resources.getMetrics().getPlayersTransform();
         List<PlayerSceneObject<CardSceneObject>> tempPlayers = playersBuilder.build(this);
-        int playersCount = Math.min(positions.length, tempPlayers.size());
+        int playersCount = Math.min(transform.length, tempPlayers.size());
         players = new ArrayList<>(playersCount);
         for (int i = 0; i < playersCount; i++) {
             players.add(tempPlayers.get(i));
-            players.get(i).setPosition(positions[i]);
+            players.get(i).setPosition(transform[i].getPosition());
+            players.get(i).setRotation(transform[i].getRotation());
             players.get(i).setParent(scene);
         }
         activePlayers = new ArrayList<>(players);
@@ -233,7 +244,7 @@ public class DurakGame implements Game<CardSceneObject, PlayerSceneObject<CardSc
                 if (deck.count() == 0)
                     return;
 
-                if (player.count() == defaultCards)
+                if (player.count() >= defaultCards)
                     continue;
 
                 player.add(deck.pop());

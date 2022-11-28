@@ -8,18 +8,18 @@ public class Metrics {
 
     private final Vector indentVertical;
 
-    private final Vector[] playersPositions;
+    private final Transform[] playersTransform;
 
     private final int cardsCount;
 
     private final Vector sceneSize;
 
-    public Metrics(int cardsCount, Vector cardSize, Vector[] playersPositions, Vector sceneSize) {
+    public Metrics(int cardsCount, Vector cardSize, Transform[] playersTransform, Vector sceneSize) {
         this.cardsCount = cardsCount;
         this.cardSize = cardSize;
         indentHorizontal = new Vector(cardSize.getX() / 3.3, 0);
         indentVertical = new Vector(0, cardSize.getY() / 2.5);
-        this.playersPositions = playersPositions;
+        this.playersTransform = playersTransform;
         this.sceneSize = sceneSize;
     }
 
@@ -35,8 +35,8 @@ public class Metrics {
         return indentVertical;
     }
 
-    public Vector[] getPlayersPositions() {
-        return playersPositions;
+    public Transform[] getPlayersTransform() {
+        return playersTransform;
     }
 
     public int getCardsCount() {

@@ -7,10 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ru.durak.Kostya.infrastructure.Metrics;
-import ru.durak.Kostya.infrastructure.Resources;
-import ru.durak.Kostya.infrastructure.Textures;
-import ru.durak.Kostya.infrastructure.Vector;
+import ru.durak.Kostya.infrastructure.*;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
 import ru.durak.Kostya.model.abstraction.builders.DeckBuilder;
 import ru.durak.Kostya.model.abstraction.TableSceneObject;
@@ -55,10 +52,10 @@ public class Durak extends Application {
         Resources.setMetrics(new Metrics(
                 6,
                 new Vector(back.getWidth(), back.getHeight()),
-                new Vector[] {
-                        new Vector(350, 290),
-                        new Vector(-10, 50),
-                        new Vector(530, 50)
+                new Transform[] {
+                        new Transform(new Vector(350, 290), 0),
+                        new Transform(new Vector(80, 50), 125),
+                        new Transform(new Vector(610, 50), 235)
                 },
                 size));
 

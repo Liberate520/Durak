@@ -54,10 +54,13 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
                 start.getY() + (!hasSingle() ? 0 : verticalIndent.getY())
         );
 
-        if (hasSingle())
+        if (hasSingle()) {
             up.add(newCard);
-        else
+            newCard.setLayer(-2);
+        } else {
             down.add(newCard);
+            newCard.setLayer(-1);
+        }
 
         newCard.setParent(this);
         newCard.setPosition(position);
@@ -95,6 +98,12 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
     }
 
     @Override
+    public void remove(CardSceneObject card) {
+        up.remove(card);
+        down.remove(card);
+    }
+
+    @Override
     public Collection<CardSceneObject> popAll() {
         Collection<CardSceneObject> result = new ArrayList<>(down);
         result.addAll(up);
@@ -115,19 +124,16 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
 
     @Override
     public Iterator<CardSceneObject> iterator() {
-        return new TableIterator(true);
+        return new TableIterator();
     }
 
     private class TableIterator implements Iterator<CardSceneObject> {
-
-        private final boolean safe;
 
         private boolean first;
 
         private int index;
 
-        public TableIterator(boolean safe) {
-            this.safe = safe;
+        public TableIterator() {
             index = down.size() - 1;
             first = !hasSingle();
         }
@@ -140,17 +146,11 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
         @Override
         public CardSceneObject next() {
             CardSceneObject card;
-            if (first) {
+            if (first)
                 card = up.get(index);
-                if (!safe)
-                    up.remove(card);
-            } else {
-                card = down.get(index);
-                if (!safe)
-                    down.remove(card);
-            }
+            else
+                card = down.get(index--);
             first = !first;
-            index--;
             return card;
         }
     }
