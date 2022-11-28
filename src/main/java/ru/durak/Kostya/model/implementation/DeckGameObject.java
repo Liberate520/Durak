@@ -3,6 +3,7 @@ package ru.durak.Kostya.model.implementation;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
 import ru.durak.Kostya.model.abstraction.DeckSceneObject;
+import ru.durak.Kostya.model.implementation.base.GameObject;
 
 import java.util.Collections;
 import java.util.Stack;
@@ -47,5 +48,8 @@ public class DeckGameObject extends GameObject implements DeckSceneObject {
     @Override
     public void shuffle() {
         Collections.shuffle(stack);
+        int i = count();
+        for (CardSceneObject card: stack)
+            card.setLayer(-i--);
     }
 }

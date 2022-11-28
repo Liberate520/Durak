@@ -12,11 +12,14 @@ import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.infrastructure.Textures;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
-import ru.durak.Kostya.model.abstraction.DeckBuilder;
+import ru.durak.Kostya.model.abstraction.builders.DeckBuilder;
 import ru.durak.Kostya.model.abstraction.TableSceneObject;
 import ru.durak.Kostya.model.abstraction.game.enums.Suit;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 import ru.durak.Kostya.model.implementation.*;
+import ru.durak.Kostya.model.implementation.base.TexturedGameObject;
+import ru.durak.Kostya.model.implementation.builders.CardDeckBuilder;
+import ru.durak.Kostya.model.implementation.builders.PlayerSceneObjectBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +62,11 @@ public class Durak extends Application {
                 },
                 size));
 
-        SceneObject gameScene = new GameScene(size);
+        TexturedGameObject gameScene = new GameScene(size);
         gameScene.setTexture(Resources.getTextures().getTexture("table"));
 
         DeckBuilder deckBuilder = new CardDeckBuilder(back, 6, 14, Suit.values());
-        PlayerSceneObjectBuilder playersBuilder = new PlayerSceneObjectBuilder(1, 2);
+        PlayerSceneObjectBuilder playersBuilder = new PlayerSceneObjectBuilder(3, 0);
 
         TableSceneObject<CardSceneObject> table = new TableGameObject();
         table.setPosition(Vector.div(size, 2));
@@ -76,6 +79,7 @@ public class Durak extends Application {
         pane.getChildren().addAll(gameScene.getGroup());
         Scene scene = new Scene(pane, size.getX(), size.getY());
         stage.setScene(scene);
+
         stage.show();
     }
 

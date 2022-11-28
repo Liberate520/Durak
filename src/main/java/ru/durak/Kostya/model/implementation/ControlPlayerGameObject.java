@@ -3,20 +3,32 @@ package ru.durak.Kostya.model.implementation;
 import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
+import ru.durak.Kostya.model.abstraction.PlayerSceneObject;
 import ru.durak.Kostya.model.abstraction.game.Game;
 import ru.durak.Kostya.model.abstraction.game.Hand;
+import ru.durak.Kostya.model.implementation.base.PlayerGameObject;
 
 public class ControlPlayerGameObject extends PlayerGameObject {
 
-    public ControlPlayerGameObject(Hand<CardSceneObject> cards, Game<CardSceneObject> game) {
+    public ControlPlayerGameObject(Hand<CardSceneObject> cards, Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game) {
         super(cards, game);
     }
 
     @Override
     public void add(CardSceneObject newCard) {
         super.add(newCard);
+        PlayerSceneObject<CardSceneObject> player = this;
+        newCard.setOnClick(mouseEvent -> game.move(player, newCard));
         sort();
         showFaceAll();
+    }
+
+    @Override
+    public void getMove() { }
+
+    @Override
+    public boolean getActiveButton() {
+        return true;
     }
 
     private void sort() {

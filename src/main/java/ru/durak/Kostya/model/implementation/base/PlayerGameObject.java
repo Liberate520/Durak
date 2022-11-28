@@ -1,4 +1,4 @@
-package ru.durak.Kostya.model.implementation;
+package ru.durak.Kostya.model.implementation.base;
 
 import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.infrastructure.Vector;
@@ -7,13 +7,13 @@ import ru.durak.Kostya.model.abstraction.PlayerSceneObject;
 import ru.durak.Kostya.model.abstraction.game.Game;
 import ru.durak.Kostya.model.abstraction.game.Hand;
 
-public class PlayerGameObject extends GameObject implements PlayerSceneObject<CardSceneObject> {
+public abstract class PlayerGameObject extends GameObject implements PlayerSceneObject<CardSceneObject> {
 
-    public final Game<CardSceneObject> game;
+    public final Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game;
 
     protected final Hand<CardSceneObject> cards;
 
-    public PlayerGameObject(Hand<CardSceneObject> cards, Game<CardSceneObject> game) {
+    public PlayerGameObject(Hand<CardSceneObject> cards, Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game) {
         this.cards = cards;
         this.game = game;
     }
@@ -38,6 +38,9 @@ public class PlayerGameObject extends GameObject implements PlayerSceneObject<Ca
         newCard.setParent(this);
         cards.add(newCard);
     }
+
+    @Override
+    public abstract void getMove();
 
     @Override
     public int count() {

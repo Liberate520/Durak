@@ -3,8 +3,9 @@ package ru.durak.Kostya.model.implementation;
 import javafx.scene.image.Image;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
+import ru.durak.Kostya.model.implementation.base.TexturedGameObject;
 
-public class GameScene extends GameObject {
+public class GameScene extends TexturedGameObject {
 
     private final Vector size;
 

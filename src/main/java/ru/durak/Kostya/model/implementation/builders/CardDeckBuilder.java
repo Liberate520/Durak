@@ -1,11 +1,13 @@
-package ru.durak.Kostya.model.implementation;
+package ru.durak.Kostya.model.implementation.builders;
 
 import javafx.scene.image.Image;
 import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
-import ru.durak.Kostya.model.abstraction.DeckBuilder;
+import ru.durak.Kostya.model.abstraction.builders.DeckBuilder;
 import ru.durak.Kostya.model.abstraction.DeckSceneObject;
 import ru.durak.Kostya.model.abstraction.game.enums.Suit;
+import ru.durak.Kostya.model.implementation.CardGameObject;
+import ru.durak.Kostya.model.implementation.DeckGameObject;
 
 public class CardDeckBuilder implements DeckBuilder {
 
@@ -27,11 +29,13 @@ public class CardDeckBuilder implements DeckBuilder {
     @Override
     public DeckSceneObject build() {
         DeckSceneObject deck = new DeckGameObject();
+        int layer = suits.length * (maxRank - minRank);
         for (Suit suit: suits)
             for (int i = minRank; i <= maxRank; i++) {
                 CardSceneObject card = new CardGameObject(i, suit, back);
                 card.setTexture(Resources.getTextures().getTexture(suit.toString() + i));
                 card.isHiddenFace(true);
+                card.setLayer(-layer++);
                 deck.push(card);
             }
 

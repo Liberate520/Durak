@@ -4,8 +4,11 @@ import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
 import ru.durak.Kostya.model.abstraction.TableSceneObject;
+import ru.durak.Kostya.model.abstraction.game.Expression;
+import ru.durak.Kostya.model.implementation.base.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,6 +73,15 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
     }
 
     @Override
+    public CardSceneObject first(Expression<CardSceneObject, Boolean> predicate) {
+        for (CardSceneObject card: this)
+            if (predicate.func(card))
+                return card;
+
+        return null;
+    }
+
+    @Override
     public void clear() {
         for (CardSceneObject card: up)
             card.setParent(null);
@@ -83,18 +95,27 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
     }
 
     @Override
-    public Iterator<CardSceneObject> popAll() {
-        return new TableIterator(false);
+    public Collection<CardSceneObject> popAll() {
+        Collection<CardSceneObject> result = new ArrayList<>(down);
+        result.addAll(up);
+        return result;
     }
 
     @Override
-    public Iterator<CardSceneObject> peekAll() {
-        return new TableIterator(true);
+    public Collection<CardSceneObject> getAll() {
+        Collection<CardSceneObject> result = new ArrayList<>(down);
+        result.addAll(up);
+        return result;
     }
 
     @Override
     public int count() {
         return down.size();
+    }
+
+    @Override
+    public Iterator<CardSceneObject> iterator() {
+        return new TableIterator(true);
     }
 
     private class TableIterator implements Iterator<CardSceneObject> {

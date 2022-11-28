@@ -1,8 +1,8 @@
 package ru.durak.Kostya.model.abstraction.game;
 
-import java.util.Iterator;
+import java.util.Collection;
 
-public interface Table<T> {
+public interface Table<T> extends Iterable<T> {
 
     boolean hasSingle();
 
@@ -10,11 +10,13 @@ public interface Table<T> {
 
     T peek();
 
+    T first(Expression<T, Boolean> predicate);
+
     void clear();
 
-    Iterator<T> popAll();
+    Collection<T> popAll();
 
-    Iterator<T> peekAll();
+    Collection<T> getAll();
 
     int count();
 }

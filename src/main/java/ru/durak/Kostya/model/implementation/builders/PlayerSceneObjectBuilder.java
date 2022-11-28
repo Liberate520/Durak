@@ -1,9 +1,12 @@
-package ru.durak.Kostya.model.implementation;
+package ru.durak.Kostya.model.implementation.builders;
 
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
-import ru.durak.Kostya.model.abstraction.PlayerBuilder;
+import ru.durak.Kostya.model.abstraction.builders.PlayerBuilder;
 import ru.durak.Kostya.model.abstraction.PlayerSceneObject;
 import ru.durak.Kostya.model.abstraction.game.Game;
+import ru.durak.Kostya.model.implementation.CardHand;
+import ru.durak.Kostya.model.implementation.ControlPlayerGameObject;
+import ru.durak.Kostya.model.implementation.NpcPlayerGameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class PlayerSceneObjectBuilder implements PlayerBuilder {
     }
 
     @Override
-    public List<PlayerSceneObject<CardSceneObject>> build(Game<CardSceneObject> game) {
+    public List<PlayerSceneObject<CardSceneObject>> build(Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game) {
         List<PlayerSceneObject<CardSceneObject>> players = new ArrayList<>(controlPlayersCount + npcPlayersCount);
 
         int i = 0;

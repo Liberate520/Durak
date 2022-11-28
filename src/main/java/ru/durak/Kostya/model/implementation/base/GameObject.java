@@ -1,6 +1,7 @@
-package ru.durak.Kostya.model.implementation;
+package ru.durak.Kostya.model.implementation.base;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ru.durak.Kostya.infrastructure.Vector;
@@ -8,16 +9,12 @@ import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 
 public abstract class GameObject implements SceneObject {
 
-    protected ImageView imageView;
-
     private SceneObject parent;
 
     protected Group group;
 
     public GameObject() {
         group = new Group();
-        imageView = new ImageView();
-        group.getChildren().addAll(imageView);
     }
 
     @Override
@@ -57,16 +54,6 @@ public abstract class GameObject implements SceneObject {
     @Override
     public void setLayer(int layer) {
         group.setViewOrder(layer);
-    }
-
-    @Override
-    public void setTexture(Image texture) {
-        imageView.setImage(texture);
-    }
-
-    @Override
-    public Image getTexture() {
-        return imageView.getImage();
     }
 
     @Override

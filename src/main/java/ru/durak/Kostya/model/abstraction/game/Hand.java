@@ -2,17 +2,17 @@ package ru.durak.Kostya.model.abstraction.game;
 
 import java.util.Collection;
 
-public interface Hand<T> extends Iterable<T> {
+public interface Hand<TCard extends Card> extends Iterable<TCard> {
 
-    T first(Expression<T, Boolean> predicate);
+    TCard first(Expression<TCard, Boolean> predicate);
 
-    Collection<T> where(Expression<T, Boolean> predicate);
+    Collection<TCard> where(Expression<TCard, Boolean> predicate);
 
-    void add(T value);
+    void add(TCard value);
 
-    void remove(T value);
+    void remove(TCard value);
 
-    boolean contains(T value);
+    boolean contains(TCard value);
 
     int count();
 }
