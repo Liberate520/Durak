@@ -1,18 +1,32 @@
 package ru.durak.Kostya.model.abstraction.game.enums;
 
+/**
+ * Масть.
+ */
 public enum Suit {
+    /**
+     * Червы
+     */
     hearts(0),
+
+    /**
+     * Буби
+     */
     tiles(1),
+
+    /**
+     * Пики
+     */
     clovers(2),
+
+    /**
+     * Крести
+     */
     pikes(3);
 
-    private final int value;
-
-    private Suit(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    /**
+     * Инициализация масти.
+     * @param value Числовое значение масти.
+     */
+    Suit(int value) { }
 }

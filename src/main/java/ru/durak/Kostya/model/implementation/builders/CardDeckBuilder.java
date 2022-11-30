@@ -9,16 +9,33 @@ import ru.durak.Kostya.model.abstraction.game.enums.Suit;
 import ru.durak.Kostya.model.implementation.CardGameObject;
 import ru.durak.Kostya.model.implementation.DeckGameObject;
 
+/**
+ * Класс, описывающий фабрику по созданию колоды карт.
+ */
 public class CardDeckBuilder implements DeckBuilder {
 
+    /**
+     * Текстура рубашки карты.
+     */
     private final Image back;
 
-    private final int minRank;
+    /**
+     * Значения минимального и максимального рангов карты.
+     */
+    private final int minRank, maxRank;
 
-    private final int maxRank;
-
+    /**
+     * Массив мастей.
+     */
     private final Suit[] suits;
 
+    /**
+     * Инициализация объекта фабрики.
+     * @param back Текстура рубашки карты.
+     * @param minRank Минимальный ранг.
+     * @param maxRank Максимальный ранг.
+     * @param suits Массив мастей.
+     */
     public CardDeckBuilder(Image back, int minRank, int maxRank, Suit... suits) {
         this.back = back;
         this.minRank = minRank;
@@ -26,6 +43,10 @@ public class CardDeckBuilder implements DeckBuilder {
         this.suits = suits == null ? new Suit[0] : suits;
     }
 
+    /**
+     * Метод, возвращающий колоду карт.
+     * @return Созданная колода карт.
+     */
     @Override
     public DeckSceneObject build() {
         DeckSceneObject deck = new DeckGameObject();

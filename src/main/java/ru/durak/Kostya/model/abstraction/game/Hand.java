@@ -1,18 +1,46 @@
 package ru.durak.Kostya.model.abstraction.game;
 
-import java.util.Collection;
+/**
+ * Класс, описывающий хранилище элементов игрока.
+ * @param <T> Тип элемента.
+ */
+public interface Hand<T> extends Iterable<T> {
 
-public interface Hand<TCard extends Card> extends Iterable<TCard> {
+    /**
+     * Метод, возвращающий первое вхождение.
+     * @return Первое вхождение.
+     */
+    T first();
 
-    TCard first(Expression<TCard, Boolean> predicate);
+    /**
+     * Метод, возвращающий первое вхождение, удовлетворяющее условию.
+     * @param predicate Условие.
+     * @return Первое вхождение, удовлетворяющее условию.
+     */
+    T first(Predicate<T, Boolean> predicate);
 
-    Collection<TCard> where(Expression<TCard, Boolean> predicate);
+    /**
+     * Метод, добавляющий элемент в хранилище.
+     * @param value Добавляемый элемент.
+     */
+    void add(T value);
 
-    void add(TCard value);
+    /**
+     * Метод, удаляющий элемент из хранилища.
+     * @param value Удаляемый элемент.
+     */
+    void remove(T value);
 
-    void remove(TCard value);
+    /**
+     * Метод проверки наличия элемента в харнилище.
+     * @param value Элемент для проверки.
+     * @return Результат проверки.
+     */
+    boolean contains(T value);
 
-    boolean contains(TCard value);
-
+    /**
+     * Метод, возвращающий колличество элементов в хранилище.
+     * @return Колличество элементов в хранилище.
+     */
     int count();
 }

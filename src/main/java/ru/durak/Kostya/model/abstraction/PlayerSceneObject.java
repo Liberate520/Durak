@@ -4,6 +4,14 @@ import ru.durak.Kostya.model.abstraction.game.Card;
 import ru.durak.Kostya.model.abstraction.game.Player;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 
+/**
+ * Игрок.
+ * @param <TCard> Тип карты.
+ */
 public interface PlayerSceneObject<TCard extends Card> extends Player<TCard>, SceneObject {
-    boolean getActiveButton();
+
+    /**
+     * Метод очистки эвентов карт.
+     */
+    void clearEvents();
 }

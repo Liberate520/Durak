@@ -1,32 +1,44 @@
 package ru.durak.Kostya.model.implementation.base;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 
+/**
+ * Абстрактный класс, описывающий игровой объект.
+ */
 public abstract class GameObject implements SceneObject {
 
+    /**
+     * Объект родителя.
+     */
     private SceneObject parent;
 
+    /**
+     * Группа дочерних элементов.
+     */
     protected Group group;
 
+    /**
+     * Инициализация игрового объекта.
+     */
     public GameObject() {
         group = new Group();
     }
 
-    @Override
-    public Group getGroup() {
-        return group;
-    }
-
+    /**
+     * Метод, возвращающий позицию объекта.
+     * @return Позиция объекта.
+     */
     @Override
     public Vector getPosition() {
         return new Vector(group.getTranslateX(), group.getTranslateY());
     }
 
+    /**
+     * Метод, изменяющий позицию объекта.
+     * @param vector Позиция объекта.
+     */
     @Override
     public void setPosition(Vector vector) {
         if (vector == null)
@@ -36,31 +48,28 @@ public abstract class GameObject implements SceneObject {
         group.setTranslateY(vector.getY());
     }
 
-    @Override
-    public double getRotation() {
-        return group.getRotate();
-    }
-
+    /**
+     * Метод, изменяющий угол поворота объекта.
+     * @param angle Угол поворота объекта.
+     */
     @Override
     public void setRotation(double angle) {
         group.setRotate(angle);
     }
 
-    @Override
-    public int getLayer() {
-        return (int)group.getViewOrder();
-    }
-
+    /**
+     * Метод, задающий позицию объекта в глубину.
+     * @param layer Позицию объекта в глубину.
+     */
     @Override
     public void setLayer(int layer) {
         group.setViewOrder(layer);
     }
 
-    @Override
-    public SceneObject getParent() {
-        return parent;
-    }
-
+    /**
+     * Метод, изменяющий родительский объект.
+     * @param object Родительский объект.
+     */
     @Override
     public void setParent(SceneObject object) {
         if (object == parent)
@@ -73,5 +82,14 @@ public abstract class GameObject implements SceneObject {
             object.getGroup().getChildren().add(group);
 
         parent = object;
+    }
+
+    /**
+     * Метод, возвращающий группу дочерних элементов.
+     * @return Группа дочерних элементлов.
+     */
+    @Override
+    public Group getGroup() {
+        return group;
     }
 }

@@ -4,27 +4,37 @@ import ru.durak.Kostya.infrastructure.Resources;
 import ru.durak.Kostya.infrastructure.Vector;
 import ru.durak.Kostya.model.abstraction.CardSceneObject;
 import ru.durak.Kostya.model.abstraction.TableSceneObject;
-import ru.durak.Kostya.model.abstraction.game.Expression;
+import ru.durak.Kostya.model.abstraction.game.Predicate;
 import ru.durak.Kostya.model.implementation.base.GameObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
+/**
+ * Класс, описывающий игровой стол.
+ */
 public class TableGameObject extends GameObject implements TableSceneObject<CardSceneObject> {
 
-    public List<CardSceneObject> down;
+    /**
+     * Мэп, хранящий карты игрового стола.
+     */
+    public Map<CardSceneObject, CardSceneObject> cards;
 
-    public List<CardSceneObject> up;
+    /**
+     * Стартовая позиция и размер карты.
+     */
+    private final Vector start, cardSize;
 
-    private final Vector start;
+    /**
+     * Колличество неотбитых карт.
+     */
+    private int singlesCount;
 
-    private final Vector cardSize;
-
+    /**
+     * Инициализация объекта игрового стола.
+     */
     public TableGameObject() {
-        down = new ArrayList<>();
-        up = new ArrayList<>();
+        cards = new LinkedHashMap<>();
+        singlesCount = 0;
         int defaultCards = Resources.getMetrics().getCardsCount();
         cardSize = Resources.getMetrics().getCardSize();
 
@@ -36,122 +46,143 @@ public class TableGameObject extends GameObject implements TableSceneObject<Card
         start = new Vector(x, y);
     }
 
+    /**
+     * Метод добавляющий новую неотбитую карту.
+     * @param newCard Новая неотбитая карта.
+     */
     @Override
-    public boolean hasSingle() {
-        return down.size() != up.size();
-    }
-
-    @Override
-    public void add(CardSceneObject newCard) {
+    public void addDown(CardSceneObject newCard) {
         if (newCard == null)
             return;
 
-        Vector horizontalIndent = Resources.getMetrics().getHorizontalIndent();
-        Vector verticalIndent = Resources.getMetrics().getVerticalIndent();
-
         Vector position = new Vector(
-                start.getX() + (cardSize.getX() + horizontalIndent.getX()) * (hasSingle() ? count() - 1 : count()),
-                start.getY() + (!hasSingle() ? 0 : verticalIndent.getY())
+                start.getX() + (cardSize.getX() + Resources.getMetrics().getHorizontalIndent().getX()) * count(),
+                start.getY()
         );
 
-        if (hasSingle()) {
-            up.add(newCard);
-            newCard.setLayer(-2);
-        } else {
-            down.add(newCard);
-            newCard.setLayer(-1);
-        }
-
+        newCard.setLayer(-1);
         newCard.setParent(this);
         newCard.setPosition(position);
         newCard.isHiddenFace(false);
+
+        cards.put(newCard, null);
+        singlesCount++;
     }
 
+    /**
+     * Метод добавляющий отбивающую карту.
+     * @param card Отбивающая карта.
+     */
     @Override
-    public CardSceneObject peek() {
-        if (count() == 0)
+    public void addUp(CardSceneObject card) {
+        if (card == null || singlesCount == 0)
+            return;
+
+        for (CardSceneObject current: cards.keySet()) {
+            if (cards.get(current) == null) {
+
+                Vector position = Vector.sum(current.getPosition(), Resources.getMetrics().getVerticalIndent());
+
+                card.setLayer(-2);
+                card.setParent(this);
+                card.setPosition(position);
+                card.isHiddenFace(false);
+
+                cards.put(current, card);
+                singlesCount--;
+                return;
+            }
+        }
+    }
+
+    /**
+     * Метод, возвращающий первое вхождение, удовлетворяющее условию.
+     * @param predicate Условие.
+     * @return Первое вхождение, удовлетворяющее условию.
+     */
+    @Override
+    public CardSceneObject first(Predicate<CardSceneObject, Boolean> predicate) {
+        for (CardSceneObject card: cards.keySet()) {
+            if (predicate.func(card))
+                return card;
+
+            CardSceneObject temp = cards.get(card);
+            if (temp != null && predicate.func(temp))
+                return temp;
+        }
+
+        return null;
+    }
+
+    /**
+     * Метод, возвращающий первую неотбитую карту.
+     * @return Первая неотбитая карта.
+     */
+    @Override
+    public CardSceneObject getSingle() {
+        if (!hasSingle())
             return null;
 
-        return hasSingle() ? down.get(down.size() - 1) : up.get(up.size() - 1);
-    }
-
-    @Override
-    public CardSceneObject first(Expression<CardSceneObject, Boolean> predicate) {
-        for (CardSceneObject card: this)
-            if (predicate.func(card))
+        for (CardSceneObject card: cards.keySet())
+            if (cards.get(card) == null)
                 return card;
 
         return null;
     }
 
-    @Override
-    public void clear() {
-        for (CardSceneObject card: up)
-            card.setParent(null);
-
-        up.clear();
-
-        for (CardSceneObject card: down)
-            card.setParent(null);
-
-        down.clear();
-    }
-
-    @Override
-    public void remove(CardSceneObject card) {
-        up.remove(card);
-        down.remove(card);
-    }
-
-    @Override
-    public Collection<CardSceneObject> popAll() {
-        Collection<CardSceneObject> result = new ArrayList<>(down);
-        result.addAll(up);
-        return result;
-    }
-
+    /**
+     * Метод, возвращающий все карты.
+     * @return Коллекция всех карт.
+     */
     @Override
     public Collection<CardSceneObject> getAll() {
-        Collection<CardSceneObject> result = new ArrayList<>(down);
-        result.addAll(up);
+        Collection<CardSceneObject> result = new HashSet<>(cards.keySet());
+        Collection<CardSceneObject> values = new HashSet<>(cards.values());
+        values.removeIf(Objects::isNull);
+        result.addAll(values);
         return result;
     }
 
+    /**
+     * Метод, очищающий стол.
+     */
+    @Override
+    public void clear() {
+
+        for (CardSceneObject card: cards.keySet()) {
+            card.setParent(null);
+            CardSceneObject temp = cards.get(card);
+            if (temp != null)
+                temp.setParent(null);
+        }
+
+        cards.clear();
+        singlesCount = 0;
+    }
+
+    /**
+     * Метод, удаляющий все карты.
+     */
+    @Override
+    public void removeAll() {
+        cards.clear();
+    }
+
+    /**
+     * Метод, возвращающий колличество пар плюс колличество неотбитых карт.
+     * @return Колличество пар плюс колличество неотбитых карт.
+     */
     @Override
     public int count() {
-        return down.size();
+        return cards.size();
     }
 
+    /**
+     * Метод проверки наличия неотбитых карт.
+     * @return Результат проверки.
+     */
     @Override
-    public Iterator<CardSceneObject> iterator() {
-        return new TableIterator();
-    }
-
-    private class TableIterator implements Iterator<CardSceneObject> {
-
-        private boolean first;
-
-        private int index;
-
-        public TableIterator() {
-            index = down.size() - 1;
-            first = !hasSingle();
-        }
-
-        @Override
-        public boolean hasNext() {
-            return index >= 0;
-        }
-
-        @Override
-        public CardSceneObject next() {
-            CardSceneObject card;
-            if (first)
-                card = up.get(index);
-            else
-                card = down.get(index--);
-            first = !first;
-            return card;
-        }
+    public boolean hasSingle() {
+        return singlesCount > 0;
     }
 }

@@ -7,17 +7,35 @@ import ru.durak.Kostya.model.abstraction.PlayerSceneObject;
 import ru.durak.Kostya.model.abstraction.game.Game;
 import ru.durak.Kostya.model.abstraction.game.Hand;
 
+/**
+ * Абстрактный класс, описывающий игрока.
+ */
 public abstract class PlayerGameObject extends GameObject implements PlayerSceneObject<CardSceneObject> {
 
+    /**
+     *  Ссылка на игру.
+     */
     public final Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game;
 
+    /**
+     * Хранилище карт.
+     */
     protected final Hand<CardSceneObject> cards;
 
+    /**
+     * Инициализация объекта игрока.
+     * @param cards Хранилище карт.
+     * @param game Ссылка на игру.
+     */
     public PlayerGameObject(Hand<CardSceneObject> cards, Game<CardSceneObject, PlayerSceneObject<CardSceneObject>> game) {
         this.cards = cards;
         this.game = game;
     }
 
+    /**
+     * Метод добавления карты игроку.
+     * @param newCard Добавляемая карта.
+     */
     @Override
     public void add(CardSceneObject newCard) {
         if (newCard == null)
@@ -35,20 +53,41 @@ public abstract class PlayerGameObject extends GameObject implements PlayerScene
         cards.add(newCard);
     }
 
+    /**
+     * Метод удаления карты у игрока.
+     * @param card Удаляемая карта.
+     */
     @Override
     public void remove(CardSceneObject card) {
         cards.remove(card);
         order(cards.count() - 1);
     }
 
+    /**
+     * Метод передачи хода игроку.
+     */
     @Override
     public abstract void getMove();
 
+    /**
+     * Метод, возвращающий колличество карт у игрока.
+     * @return Колличество карт у игрока.
+     */
     @Override
     public int count() {
         return cards.count();
     }
 
+    /**
+     * Метод очистки эвентов карт.
+     */
+    @Override
+    public void clearEvents() { }
+
+    /**
+     * Метод упорядочивания карт.
+     * @param count Колличество карт.
+     */
     protected void order(int count) {
         Vector indent = Resources.getMetrics().getHorizontalIndent();
         Vector start = new Vector(-(Resources.getMetrics().getCardSize().getX() + indent.getX() * (count)) / 2, 0);

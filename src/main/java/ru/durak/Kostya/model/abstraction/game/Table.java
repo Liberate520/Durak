@@ -2,23 +2,63 @@ package ru.durak.Kostya.model.abstraction.game;
 
 import java.util.Collection;
 
-public interface Table<T> extends Iterable<T> {
+/**
+ * Игровой стол.
+ * @param <T> Тип элементов игрового столя.
+ */
+public interface Table<T> {
 
-    boolean hasSingle();
+    /**
+     * Метод добавляющий новый незакрытый элемент.
+     * @param value Новый незакрытый элемент.
+     */
+    void addDown(T value);
 
-    void add(T value);
+    /**
+     * Метод добавляющий новый закрывающий элемент.
+     * @param value Новый закрывающий элемент.
+     */
+    void addUp(T value);
 
-    T peek();
 
-    T first(Expression<T, Boolean> predicate);
+    /**
+     * Метод, возвращающий первое вхождение, удовлетворяющее условию.
+     * @param predicate Условие.
+     * @return Первое вхождение, удовлетворяющее условию.
+     */
+    T first(Predicate<T, Boolean> predicate);
 
-    void remove(T value);
+    /**
+     * Метод, возвращающий первый незакрытый элемент.
+     * @return Первый незакрытый элемент.
+     */
+    T getSingle();
 
-    void clear();
-
-    Collection<T> popAll();
-
+    /**
+     * Метод, возвращающий все элементы стола.
+     * @return Коллекция всех элементов стола..
+     */
     Collection<T> getAll();
 
+    /**
+     * Метод, очищающий стол.
+     */
+    void clear();
+
+    /**
+     * Метод, удаляющий все элементы.
+     */
+    void removeAll();
+
+    /**
+     * Метод, возвращающий колличество пар плюс колличество незакрытых элементов.
+     * @return Колличество пар плюс колличество незакрытых элементов.
+     */
     int count();
+
+    /**
+     * Метод проверки наличия незакрытх элементов.
+     * @return Результат проверки.
+     */
+    boolean hasSingle();
 }

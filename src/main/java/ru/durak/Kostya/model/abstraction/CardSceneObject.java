@@ -5,4 +5,7 @@ import ru.durak.Kostya.model.abstraction.scene.Clickable;
 import ru.durak.Kostya.model.abstraction.scene.SceneObject;
 import ru.durak.Kostya.model.abstraction.scene.Texturable;
 
+/**
+ * Карта.
+ */
 public interface CardSceneObject extends Card, SceneObject, Texturable, Clickable { }
